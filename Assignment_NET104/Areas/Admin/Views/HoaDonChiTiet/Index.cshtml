@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="app">
+        <div class="layout">
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="page-header">
+                        <div class="header-sub-title">
+                            <nav class="breadcrumb breadcrumb-dash">
+                                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                                <a class="breadcrumb-item" href="#">Quản lý hóa đơn</a>
+                                <span class="breadcrumb-item active">Danh sách hóa đơn<span>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row m-b-30">
+                                <div class="col-lg-8">
+                                    <div class="d-md-flex">
+                                        <div class="m-b-10 m-r-15">
+                                            <select class="custom-select" style="min-width: 180px;">
+                                                <option selected>Catergory</option>
+                                                <option value="all">All</option>
+                                                <option value="homeDeco">Home Decoration</option>
+                                                <option value="eletronic">Eletronic</option>
+                                                <option value="jewellery">Jewellery</option>
+                                            </select>
+                                        </div>
+                                        <div class="m-b-10">
+                                            <select class="custom-select" style="min-width: 180px;">
+                                                <option selected>Status</option>
+                                                <option value="all">All</option>
+                                                <option value="inStock">In Stock </option>
+                                                <option value="outOfStock">Out of Stock</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover e-commerce-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="checkbox">
+                                                    <input id="checkAll" type="checkbox">
+                                                    <label for="checkAll" class="m-b-0"></label>
+                                                </div>
+                                            </th>
+                                            <th>ID</th>
+                                            <th>IdHoaDon</th>
+                                            <th>IdSanPham</th>
+                                            <th>SLMua</th>
+                                            <th>GiaTien</th>
+                                            <th>NgayDat</th>
+                                            <th>NgayGiao</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    @if (Model != null)
+                                    {
+                                        @foreach( var item in Model)
+                                        {
+                                            <tr>   
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                <input id="check-item-1" type="checkbox">
+                                                <label for="check-item-1" class="m-b-0"></label>
+                                            </div>
+                                                </td>
+                                                <td>@item.Id</td>
+                                                <td>@item.IdHoaDon</td>
+                                                <td>@item.IdSanPham</td>
+                                                <td>@item.SLMua</td>
+                                                <td>@item.GiaTien</td>
+                                                <td>@item.NgayDat</td>
+                                                <td>@item.NgayGiao</td>
+                                                <td class="text-right">
+
+                                                    <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                                                   <i class="anticon anticon-close"></i>
+                                                </button>
+                                                    <button class="btn btn-icon btn-hover btn-sm btn-rounded asp-area="Admin" asp-controller="HoaDon" asp-action="ChapNhapThanhToan" asp-route-id="@item.Id">
+                                                    <i class="anticon anticon-check"></i>
+                                                </button>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                     }
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+            <!-- Quick View START -->
+            <div class="modal modal-right fade quick-view" id="quick-view">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-between align-items-center">
+                            <h5 class="modal-title">Theme Config</h5>
+                        </div>
+                        <div class="modal-body scrollable">
+                            <div class="m-b-30">
+                                <h5 class="m-b-0">Header Color</h5>
+                                <p>Config header background color</p>
+                                <div class="theme-configurator d-flex m-t-10">
+                                    <div class="radio">
+                                        <input id="header-default" name="header-theme" type="radio" checked value="default">
+                                        <label for="header-default"></label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="header-primary" name="header-theme" type="radio" value="primary">
+                                        <label for="header-primary"></label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="header-success" name="header-theme" type="radio" value="success">
+                                        <label for="header-success"></label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="header-secondary" name="header-theme" type="radio" value="secondary">
+                                        <label for="header-secondary"></label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="header-danger" name="header-theme" type="radio" value="danger">
+                                        <label for="header-danger"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <h5 class="m-b-0">Side Nav Dark</h5>
+                                <p>Change Side Nav to dark</p>
+                                <div class="switch d-inline">
+                                    <input type="checkbox" name="side-nav-theme-toogle" id="side-nav-theme-toogle">
+                                    <label for="side-nav-theme-toogle"></label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <h5 class="m-b-0">Folded Menu</h5>
+                                <p>Toggle Folded Menu</p>
+                                <div class="switch d-inline">
+                                    <input type="checkbox" name="side-nav-fold-toogle" id="side-nav-fold-toogle">
+                                    <label for="side-nav-fold-toogle"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+            <!-- Quick View END -->
+        </div>
+    </div>
+

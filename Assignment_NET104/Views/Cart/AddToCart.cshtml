@@ -1,0 +1,95 @@
+﻿@using Assignment_NET104.Models;
+@{
+    ViewData["Title"] = "addtocart";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+    List<GioHang> listCartDetails = ViewBag.listCartDetails;
+    List<SanPham> listProduct = ViewBag.listProduct;
+}
+
+<main>
+      <!-- Hero Area Start-->
+      <div class="slider-area ">
+          <div class="single-slider slider-height2 d-flex align-items-center">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-xl-12">
+                          <div class="hero-cap text-center">
+                              <h2>Cart List</h2>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--================Cart Area =================-->
+     <div class="content pb-5 bg-white">
+    <h3 class="text-uppercase text-center py-4">Giỏ hàng của bạn</h3>
+
+    <table class="table table-hover text-center"
+        <thead class="fs-6">
+            <tr>
+                <th>STT</th>
+                <th colspan="3">Sản phẩm</th>
+                <th>Giá tiền</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{var index = 1;}
+                    @foreach (var productInCart in listCartDetails)
+                    {
+                        <tr>
+                            <th>@(index ++)</th>
+                            <td colspan="3">
+                                <div class="row p-0 m-0">
+                                    <div class="col-6">
+                                        <img class="p-2"
+                                        src="~/images/@listProduct.FirstOrDefault(c=>c.Id == productInCart.IdSp).HinhAnh"
+                                        alt="product"  height="200" width="185">
+                                    </div>
+                                    <div class="col-6 py-4">
+                                        <p class="text-start" style="text-overflow: ellipsis;">@listProduct.FirstOrDefault(c=>c.Id == productInCart.IdSp).TenSp</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@listProduct.FirstOrDefault(c=>c.Id == productInCart.IdSp).GiaSanPham</td>
+                            <td>@productInCart.Soluong</td>
+                            <td><b>@(listProduct.FirstOrDefault(c => c.Id == productInCart.IdSp).GiaSanPham * productInCart.Soluong)</b></td>
+                            <td colspan="2">
+                                <div class="btn btn-product" enctype="multipart/form-data">
+                                  <a href="@Url.Action("Delete", "Cart", new { idProduct = productInCart.IdSp, idUser = Guid.Parse("98513859-0014-4b2c-1346-08db3dbf0574") })"><span>Xoa</span></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }   
+            <tr>
+                <div class="btn btn-product">
+                   <a asp-controller="Home" asp-action="Index"><span >Quay lại</span</a>
+                </div>
+                <th class="text-uppercase fs-5" colspan="6">
+                    Tổng thành tiền (@listCartDetails.Count())
+                </th>
+                @{
+                    // Thành tiền của từng SP (PricePerProduct) = Giá SP * số lượng trong giỏ hàng
+                    // Tổng thành tiền = PricePerProduct1 + PricePerProduct2 + PricePerProduct3
+
+                    // B1: Tìm giá của từng sản phẩm
+                    // B2: Nhân giá cho số lượng trong giỏ hàng -> PricePerProduct
+                    // B3: Cộng tất cả PricePerProduct tìm được
+                }
+                <td class="fs-6"><b>@listCartDetails.Sum(c => c.Soluong * (listProduct.FirstOrDefault(x=>x.Id == c.IdSp).GiaSanPham))</b></td>
+                <td colspan="2">
+                    @Html.ActionLink("Mua hàng",
+                    "Create",  // <-- ActionMethod
+                    "Bill",   // <-- Controller Name.
+                    new { idUser = "98513859-0014-4b2c-1346-08db3dbf0574"},
+                    null
+                    )
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

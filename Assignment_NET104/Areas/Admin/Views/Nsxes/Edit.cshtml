@@ -1,0 +1,40 @@
+﻿@model Assignment_NET104.Models.Nsx
+
+@{
+    ViewData["Title"] = "Edit"+Model.TenNxs;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="page-header">
+     <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+           <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+           <a class="breadcrumb-item" href="#">Quản lý Sản Phẩm</a>
+           <a class="breadcrumb-item" href="#">Nhà sản xuất</a>
+           <span class="breadcrumb-item active">Sửa NSX</span>
+        </nav>
+     </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="TenNxs" class="control-label"></label>
+                <input asp-for="TenNxs" class="form-control" />
+                <span asp-validation-for="TenNxs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+   <a class="btn btn-warning btn-tone m-r-5" asp-action="Index">Back to List</a>
+</div>
+

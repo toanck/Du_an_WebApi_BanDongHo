@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Assignment_NET104.Models.SanPham >
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    var listThuonghieu = ViewData["thuongHieu"] as List<ThuongHieu>;
+}
+
+<div class="page-header">
+     <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+           <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+           <a class="breadcrumb-item" href="#">Quản lý sản phẩm</a>
+           <span class="breadcrumb-item active">Danh sách sản phẩm</span>
+        </nav>
+     </div>
+</div>
+<div>
+    <a class="btn btn-primary btn-tone m-r-5" asp-area="Admin" asp-controller="SanPham" asp-action="Create" >Create</a>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Thương hiệu</th>
+                <th scope="col">Giá sản phẩm</th>
+                <th scope="col">Số lượng tồn</th>
+                <th scope="col">Trạng Thái</th>
+                <th scope="col">Giới tính</th>
+                <th scope="col">Xuất sứ</th>
+                <th scope="col">Loại máy</th>
+                <th scope="col">Nhà sản xuất</th>
+                <th scope="col">Thời gian bảo hành</th>
+                <th scope="col">Miêu tả</th>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            { 
+                @foreach (var item in Model)
+                {   
+                    
+                    <tr >
+                        <td>@item.Id</td>
+                        <td>@item.TenSp</td>
+                        <td>@{
+                                Assignment_NET104.Models.ShopWatchDbContext db = new Assignment_NET104.Models.ShopWatchDbContext();
+                                var thuonghieus = (db.thuongHieus.Find(item.IdThuongHieu));
+                                
+                               <span>@thuonghieus.TenThuongHieu</span>
+                         }</td>
+                        <td>@item.GiaSanPham</td>
+                        <td>@item.SlTon</td>
+                        @*<td>@item.TrangThai</td>*@
+                        <td>@item.GioiTinh</td>
+                        <td>@{
+                                Assignment_NET104.Models.ShopWatchDbContext db1 = new Assignment_NET104.Models.ShopWatchDbContext();
+                                var XuatSus = (db.suatXus.Find(item.IdXuatSu))  /*.Find(item.IdThuongHieu) LoaiMay*/;
+                                
+                               <span>@XuatSus.NoiXuatSu</span>
+                         }</td>
+                        <td>@{
+                                Assignment_NET104.Models.ShopWatchDbContext db2 = new Assignment_NET104.Models.ShopWatchDbContext();
+                                var LoaiMay = (db.loaiMays.Find(item.IdLoaiMay))  /*.Find(item.IdThuongHieu) Nsx*/;
+                                
+                               <span>@LoaiMay.TenLoaiMay</span>
+                         }</td>
+                        <td>@{
+                                Assignment_NET104.Models.ShopWatchDbContext db3 = new Assignment_NET104.Models.ShopWatchDbContext();
+                                var Nsx = (db.Nsxes.Find(item.IdNsx))  /*.Find(item.IdThuongHieu) Nsx*/;
+                                
+                               <span>@Nsx.TenNxs</span>
+                         }</td>
+                        <td>@item.ThoiGianBaoHanh</td>
+                        <td>@item.MieuTa</td>
+                        <td>
+                            @if (System.IO.Path.GetExtension(item.HinhAnh) == ".jpg" ||
+                                 System.IO.Path.GetExtension(item.HinhAnh) == ".png" ||
+                                 System.IO.Path.GetExtension(item.HinhAnh) == ".jpeg" ||
+                                 System.IO.Path.GetExtension(item.HinhAnh) == ".tiff" ||
+                                 System.IO.Path.GetExtension(item.HinhAnh) == ".webp")
+                                    {
+                                <img src="~/images/@item.HinhAnh" height="100" width="150">
+                            }
+                            else{ <span>Ảnh lỗi rồi =)))</span>  }
+                        </td>
+                        <td>
+                            <a class="btn btn-info btn-tone m-r-5 small" asp-area="Admin" asp-controller="SanPham" asp-action="Details" asp-route-id="@item.Id" >Detail</a>
+                            <a class="btn btn-secondary btn-tone m-r-5 small" asp-area="Admin" asp-controller="SanPham" asp-action="Edit" asp-route-id="@item.Id">Edit </a>
+                            <a class="btn btn-danger btn-tone m-r-5 small"asp-area="Admin" asp-controller="SanPham" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                  </tr> 
+                }
+            }
+        </tbody>
+    </table>
+</div>

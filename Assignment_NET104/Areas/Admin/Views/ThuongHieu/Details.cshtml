@@ -1,0 +1,48 @@
+﻿@model Assignment_NET104.Models.ThuongHieu
+
+@{
+    ViewData["Title"] = "Details"+Model.TenThuongHieu;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+     <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+           <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+           <a class="breadcrumb-item" href="#">Quản lý Sản Phẩm</a>
+           <a class="breadcrumb-item" href="#">Thương hiệu</a>
+           <span class="breadcrumb-item active">Chi tiết Thương hiệu</span>
+        </nav>
+     </div>
+</div>
+<div>
+    <tbody>
+        <tr>
+            <td>ID:</td>
+            <td class="text-dark font-weight-semibold">@Model.Id</td>
+        </tr>
+        <tr>
+            <td>Tên Thương hiệu:</td>
+            <td>@Model.TenThuongHieu</td>
+        </tr>
+        <tr>
+            <td>Miêu tả:</td>
+            <td>@Model.MoTa</td>
+        </tr>
+    </tbody>
+</div>
+<div>
+   <a class="btn btn-secondary btn-tone m-r-5" asp-area="Admin" asp-controller="ThuongHieu" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+     <a class="btn btn-warning btn-tone m-r-5" asp-action="Index">Back to List</a>
+</div>
+
+<div class="page-header">
+     <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+           <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+           <a class="breadcrumb-item" href="#">Quản lý Sản Phẩm</a>
+           <a class="breadcrumb-item" href="#">Loại Máy</a>
+           <span class="breadcrumb-item active">Danh sách loại máy</span>
+        </nav>
+     </div>
+</div>

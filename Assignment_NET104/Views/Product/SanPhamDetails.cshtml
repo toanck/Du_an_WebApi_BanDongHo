@@ -1,0 +1,67 @@
+﻿@model Assignment_NET104.Models.SanPham
+
+@{
+    ViewData["Title"] = "SanPhamDetails";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+}
+@{
+    List<SanPham> listSanPham = ViewBag.listSanPham;
+}
+ 
+             <!-- Hero Area Start-->
+        <div class="slider-area ">
+            <div class="single-slider slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap text-center">
+                                <h2>Watch Shop</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero Area End-->
+        @{var sanPham = new Assignment_NET104.Models.SanPham();
+            var giaSanPham = Model.GiaSanPham;
+            var formattedGiaSanPham = sanPham.FormatNumber(giaSanPham);}
+        <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="~/images/@Model.HinhAnh" alt="..." /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1">SKU: BST-498</div>
+                        <h1 class="display-5 fw-bolder">@Model.TenSp</h1>
+                        <div class="fs-5 mb-5">
+                            <del style="color: gray; text-decoration">120.000.000₫</del>
+                            <span>@formattedGiaSanPham₫</span>
+                        </div>
+                        <div> So luong: @Model.SlTon</div>
+                        <p class="lead">
+                                
+                            @{Assignment_NET104.Models.ShopWatchDbContext db = new Assignment_NET104.Models.ShopWatchDbContext();
+                            var thuonghieus = (db.thuongHieus.Find(Model.IdThuongHieu));
+                                Assignment_NET104.Models.ShopWatchDbContext db1 = new Assignment_NET104.Models.ShopWatchDbContext();
+                                var loaiMays = (db.loaiMays.Find(Model.IdLoaiMay));
+                                Assignment_NET104.Models.ShopWatchDbContext db2 = new Assignment_NET104.Models.ShopWatchDbContext();
+                                var Nsx = (db.Nsxes.Find(Model.IdNsx));
+                                Assignment_NET104.Models.ShopWatchDbContext db3 = new Assignment_NET104.Models.ShopWatchDbContext();
+                                var xuatSu = (db.suatXus.Find(Model.IdXuatSu));
+                                
+                               <span>Mẫu sản phẩm @Model.TenSp Phiên bản mới nhất của nhà @thuonghieus.TenThuongHieu với của đất nước @xuatSu.NoiXuatSu được sử dụng với loại 
+                               @loaiMays.TenLoaiMay hiện đại.</span>}
+                        </p>
+                        <div class="d-flex">
+                         <a><button class="btn btn-outline-dark flex-shrink-0" type="submit" data-id="@Model.Id">
+                                <i class="bi-cart-fill me-1"></i>
+                               <a href="@Url.Action("Create", "Cart", new { idProduct = Model.Id, idUser = Guid.Parse("98513859-0014-4b2c-1346-08db3dbf0574") })"><span>Thêm vào giỏ hàng</span></a>
+                            </button></a>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+       
+
